@@ -1,0 +1,55 @@
+<html>
+<head>
+    <script type="text/javascript">
+    console.log("Background.html"); // This gets displayed. O.K.
+    function getClickHandler() {
+        return function(info, tab) {
+            var t = encodeURI(tab.title);
+            var u = encodeURI(tab.url);
+            var c = encodeURI(info.selectionText);
+            fakePostCode = fakePost.toString().replace(/(\n|\t)/gm, '');
+            chrome.tabs.create({
+                "url": "javascript:" + fakePostCode + ";fakePost('" + u + "','" + t + "','" + c + "')"
+            });
+        };
+    };
+
+    function fakePost(u, t, c) {
+        u = encodeURI(u);
+        t = encodeURI(t);
+        c = encodeURI(c);
+        var form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("action", "http://www.ireadhome.com/Collect/CollectInfo");
+        var params = {
+            url: u,
+            title: t,
+            content: c
+        };
+        for (var key in params) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+            form.appendChild(hiddenField);
+        }
+        document.body.appendChild(form);
+        form.submit();
+    };
+
+    chrome.contextMenus.create({
+        "title": "! iRead发现",
+        "type": "normal",
+        "contexts": ["all"],
+        "onclick": getClickHandler()
+    });
+
+    function hello() {
+        console.log("HELLO");
+    }
+
+    chrome.browserAction.onClicked.addListener(hello);
+    </script>
+</head>
+
+</html>
