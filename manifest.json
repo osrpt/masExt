@@ -26,7 +26,8 @@
             "http://www.rmdown.com/*",
             "http://www.zhibo8.cc/*",
             "http://www.cnblogs.com/*",
-            "http://weibo.com/*"
+            "http://weibo.com/*",
+            "http://user.qzone.qq.com/*"
         ],
         "css": ["style.css"],
         "js": ["jquery-2.0.3.min.js", "contentScripts.js", "inotev2.js", "jquery.lazyload.min.js"]

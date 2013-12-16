@@ -1,4 +1,16 @@
 
+a {
+
+    color:#03426A !important;
+
+}
+
+a:hover {
+
+    color:#0A67A3 !important;
+
+}
+
 /*start t66y style*/
 
 .t66y {
@@ -107,9 +119,11 @@
 
     position:fixed;
 
-    top:50px;
+    right:20px;
 
-    left:50px;
+    top:50%;
+
+    margin-top: -24px;
 
 }
 
@@ -150,3 +164,39 @@
 }
 
 /*end weibo style*/
+
+/*start qzone style*/
+
+.qzone .layout-head, .qzone #div_corner_ad_container, .qzone .layout-nav, .qzone .icenter-right-ad, .qzone .icenter-right-mod {
+
+    display:none !important;
+
+}
+
+#QM_Container_3, .qzone .fn_accessLog_tips {
+
+    display:block !important;
+
+}
+
+.qzone .col-main-feed {
+
+    width:700px !important;
+
+}
+
+.qzone #applist_html {
+
+    display:none !important;
+
+}
+
+.qzone #main_feed_container {
+
+    float:none !important;
+
+    width: 960px !important;
+
+}
+
+/*end qzone style*/
