@@ -104,7 +104,7 @@ $(document).ready(function() {
                 var tagName = $(this).prop("tagName");
                 if (tagName === 'A') {
                     var href = String($(this).attr("href"));
-                    var newHref = href.replace(/______/g, ".").replace("http://www.viidii.com/?", "");
+                    var newHref = href.replace(/______/g, ".").replace("http://www.viidii.info/?", "");
                     $(this).attr("href", newHref);
                 } else if (tagName === 'IMG') {
                     var src = String($(this).attr("src"));
