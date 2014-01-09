@@ -69,7 +69,7 @@ $(document).ready(function() {
 
         var up = $("<div/>");
         up.attr('id', 'masExtUp');
-        up.addClass('up')
+        up.addClass('up');
 
         tool.append(wolf);
         tool.append(up);

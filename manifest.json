@@ -22,7 +22,7 @@
         "default_popup": "popup.html"
     },
     "content_scripts": [{
-        "matches": ["*://*/*"],
+        "matches": ["<all_urls>"],
         "css": ["/css/style.css", "/css/wbMini.css"],
         "js": ["/js/jquery-2.0.3.min.js", "/js/contentScripts.js", "/js/inotev2.js"]
     }]
