@@ -201,9 +201,9 @@ a:hover {
 
 .readability .article {
 
-    width:720px;
+    width:720px !important;
 
-    margin:1em auto;
+    margin:2em auto 5em;
 
 }
 
@@ -223,15 +223,25 @@ a:hover {
 
 .readability .article .content {
 
-    font-family:'Microsoft Yahei';
+    width:720px !important;
 
-    font-size: 18px !important;
+    font-family:'Microsoft Yahei' !important;
+
+    font-size: 14px !important;
+
+    line-height: 1.5em !important;
 
 }
 
 .readability .article .content p {
 
-    marging:0 0 25px 0 !important;
+    marging:0 0 2em 0 !important;
+
+}
+
+.readability .article .content img {
+
+    max-width: 100% !important;
 
 }
 

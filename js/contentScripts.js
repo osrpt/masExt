@@ -52,6 +52,8 @@ $(document).ready(function() {
             return false;
     }
 
+    var isShowArticle = false;
+
     /**
      * readability init
      * @return {[type]} [description]
@@ -75,17 +77,24 @@ $(document).ready(function() {
         tool.append(up);
         $('body').append(tool);
         $("#masExtWolfIcon").click(function() {
-            window.scrollTo(0,0);
-            var cacheDoc = document.createElement('div');
-            cacheDoc.innerHTML = window.document.body.innerHTML;
-            var content = grabArticle(cacheDoc);
-            var rea = $("<div></div>");
-            rea.attr('class', 'readability');
-            rea.html('<div class="article"><h2 class="title"></h2><div class="content"></div></div>');
-            rea.appendTo('body');
-            $('.readability .title').text($('title').text());
-            $('.readability .content').html(content);
-            $('body').css('overflow', 'hidden');
+            if (!isShowArticle) {
+                isShowArticle = true;
+                window.scrollTo(0, 0);
+                var cacheDoc = document.createElement('div');
+                cacheDoc.innerHTML = window.document.body.innerHTML;
+                var content = grabArticle(cacheDoc);
+                var rea = $("<div></div>");
+                rea.attr('class', 'readability');
+                rea.html('<div class="article"><h2 class="title"></h2><div class="content"></div></div>');
+                rea.appendTo('body');
+                $('.readability .title').text($('title').text());
+                $('.readability .content').html(content);
+                $('body').css('overflow', 'hidden');
+            } else {
+                isShowArticle = false;
+                $('.readability').remove();
+                $('body').css('overflow', 'auto');
+            }
         });
 
         $("#masExtUp").click(function() {
