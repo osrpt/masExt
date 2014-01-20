@@ -245,6 +245,106 @@ a:hover {
 
 }
 
+.masTran {
+
+    text-align: left;
+
+    display:none;
+
+    width:250px;
+
+    min-height:157px;
+
+    z-index: 99999;
+
+    position:absolute;
+
+    top:30px;
+
+    left:30px;
+
+    background:#009d91;
+
+    opacity:0.97;
+
+    padding:10px;
+
+    border-radius: 10px;
+
+    box-shadow: #35d699 5px 5px 5px;
+
+}
+
+.masTran .close {
+
+    cursor:pointer;
+
+    float:right;
+
+    width:16px;
+
+    height:16px;
+
+    margin-left: 5px;
+
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA70lEQVQ4T42T4QoBURCF7Yt4OvlFNiIb2YiIbKSU1/MGfvmlnG/bZay5y9S0986cc+7OnblR4217La/yo4l5y5mCTXmLZFQgtvoOi3VcIzJWbl3gOChGgAAJa54IB3CQtQwBLwHIivS1p8SqJWUJIQAi2MEjK7YpBch35CcH6IUSyCSsAPu2/PJD5EX2BH6JfJBDAvR5HviLkeI7m6uWABGBOguWsBRr8uclToVb2RJC5K5AD/nZEc5FQpMIfiDPCmJPX28WUgToPTNg7eu2lfSGLX8LmBVJtV8E7sI+pnzUbRd4KHc5AnVGl26QAT0Bjv0wA+15arUAAAAASUVORK5CYII=);
+
+}
+
+.masTran .title {
+
+    padding-bottom: 5px;
+
+    border-bottom: 1px solid #fff;
+
+    margin:0;
+
+    margin-left: 10px;
+
+    line-height: 26px;
+
+}
+
+.masTran .oriWord {
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color:#000;
+
+}
+
+.masTran .phonetic {
+
+    background-color: #fff;
+
+    color:#8a0041;
+
+    font-size: 12px;
+
+    line-height: 14px;
+
+    padding:3px;
+
+    border-radius: 2px;
+
+    margin-left: 8px;
+
+}
+
+.masTran .explain {
+
+    font-size: 14px;
+
+    color:#000;
+
+    margin:3px;
+
+    padding:3px;
+
+}
+
 /*end mas ext style*/
 
 /*start weibo style*/

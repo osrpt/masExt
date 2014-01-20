@@ -26,7 +26,7 @@ $(document).ready(function() {
 
     initReadability();
 
-    var seeImage = true;
+    var seeImage = false; //屏蔽这个功能
 
     switch (getSitesType()) {
         case sites.t66y:
@@ -45,7 +45,6 @@ $(document).ready(function() {
             beautyQzone();
             break;
         case sites.weibo:
-            seeImage = false;
             beautyWeibo();
             break;
         default:
@@ -274,3 +273,83 @@ $(document).ready(function() {
         }
     }
 });
+
+
+((function($) {
+    var isShowTran = false;
+
+    var x, y;
+
+    $(document).click(function(e) {
+        console.log(e.target.className);
+    });
+
+    $(document).keypress(function(event) {
+        var code = event.keyCode || event.whick;
+        if (code == 100) {
+            var t = getSelected().toString().trim();
+            if (t != '' && t.length < 200) {
+                youdaoApi(t, function(res) {
+                    if (!isShowTran) {
+                        var box = $("<div></div>");
+                        box.attr('id', 'masTran');
+                        box.addClass('masTran');
+                        box.html(["<p class='title'>",
+                            "<span id='masOriWord' class='oriWord'></span>",
+                            "<span class='close'></span>",
+                            "<span class='phonetic'></span>",
+                            "</p>",
+                            "<div id='masTranContent'>",
+                            "</div>"
+                        ].join(''));
+                        $('body').append(box);
+                        isShowTran = true;
+                        $("#masTran .close").click(function() {
+                            $("#masTran").hide();
+                        });
+                    }
+                    $('#masTran').hide().css('left', x).css('top', y).show('500');;
+                    $('#masOriWord').text(t); //res.translation
+                    $('#masTran .phonetic').text(res.basic.phonetic);
+                    var explains = res.basic.explains;
+                    $('#masTran .explain').remove();
+                    $("#masTranContent").append("<p class='explain'>1. " + res.translation + "</p>");
+                    var index = 2;
+                    for (var i = 0; i < explains.length; i++) {
+                        var explain = explains[i];
+                        if (explain != res.translation) {
+                            $('#masTranContent').append("<p class='explain'>" + (index++) + '. ' + explain + "</p>");
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    $(document).bind('mouseup', function(event) {
+        var container = $('.masTran');
+        if (!container.is(event.target) && container.has(event.target).length == 0) {
+            container.hide('300');
+        }
+        x = event.pageX;
+        y = event.pageY;
+    });
+
+    function getSelected() {
+        var t = '';
+        if (window.getSelection) {
+            t = window.getSelection();
+        } else if (document.getSelection) {
+            t = document.getSelection();
+        } else if (document.selection) {
+            t = document.selection.createRange().text;
+        }
+        return t;
+    }
+
+    function youdaoApi(input, callback) {
+        $.get("http://fanyi.youdao.com/fanyiapi.do?keyfrom=HaloWordDictionary&key=1311342268&type=data&doctype=json&version=1.1&q=" + input, function(res) {
+            callback(res);
+        });
+    }
+})(jQuery));
