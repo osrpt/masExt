@@ -1,7 +1,7 @@
 ﻿{
     "manifest_version": 2,
     "name": "masExt",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "description": "massimo clean web extension",
     "permissions": [
         "contextMenus",
@@ -23,7 +23,19 @@
     },
     "content_scripts": [{
         "matches": ["<all_urls>"],
-        "css": ["/css/style.css", "/css/wbMini.css"],
+        "css": ["/css/style.css"],
         "js": ["/js/jquery-2.0.3.min.js", "/js/contentScripts.js", "/js/inotev2.js"]
-    }]
+    }],
+    "commands": {
+        "open-translate": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+K"
+            },
+            "description": "打开翻译窗口"
+        }
+    },
+    "background": {
+        "scripts": ["/js/background.js"]
+    },
+    "web_accessible_resources": ["/css/wbMini.css"]
 }

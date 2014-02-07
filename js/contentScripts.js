@@ -7,7 +7,8 @@ var sites = {
     cnblogs: 'cnblogs',
     weibo: 'weibo',
     qzone: 'qzone',
-    rmdown: 'rmdown'
+    rmdown: 'rmdown',
+    google: 'www.google.com'
 };
 
 var thisSite = getSitesType();
@@ -22,11 +23,15 @@ function getSitesType() {
     return sites.unknown;
 }
 
+switch (getSitesType()) {
+    case sites.weibo:
+        loadWbMiniCss();
+        break;
+}
+
 $(document).ready(function() {
 
     initReadability();
-
-    var seeImage = false; //屏蔽这个功能
 
     switch (getSitesType()) {
         case sites.t66y:
@@ -47,6 +52,8 @@ $(document).ready(function() {
         case sites.weibo:
             beautyWeibo();
             break;
+        case sites.google:
+            beautyGoogle();
         default:
             return false;
     }
@@ -166,129 +173,56 @@ $(document).ready(function() {
     }
 
     function beautyWeibo() {
-        if (document.getElementById("g_wbmini")) return;
-        var el = document.createElement("link");
-        el.id = "g_wbmini";
-        el.rel = "stylesheet";
-        el.href = chrome.extension.getURL("css/wbMini.css");
-        headEl = document.getElementsByTagName("head")[0];
-        headEl.appendChild(el);
-    }
-
-    if (seeImage) {
-        seeImages();
-    }
-
-    function seeImages() {
-        var srcArr = [],
-            imgArr = [];
-        imgArr = document.getElementsByTagName("img");
-        for (var i = 0, _i = imgArr.length; i < _i; i++) {
-            srcArr.push(imgArr[i].src);
-        }
-
-        $("img").click(function(event) {
-            inote_create_mc(srcArr, $(this)[0].src);
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
-        });
-
-        function inote_create_mc(src, the_src) {
-            document.body.style.overflow = "hidden";
-            var size = windowchange();
-            var inote_mc_div = document.createElement("div");
-            inote_mc_div.setAttribute("style", "position:fixed;top:0;left:0;background:#000;opacity:0.8;height:" + size.Height + ";width:" + size.Width);
-            document.body.appendChild(inote_mc_div);
-            var inote_img_look = document.createElement("img");
-            inote_img_look.src = the_src;
-            inote_img_look.setAttribute("style", "max-height:" + (parseInt(size.Height) - 300) + "px;max_width:" + (parseInt(size.Width) - 100) + "px;margin-bottom:40px")
-            inote_img_look.id = "single_img_look";
-            var inote_img_container = document.createElement("div");
-            document.body.appendChild(inote_img_container);
-            inote_img_container.appendChild(inote_img_look);
-            inote_img_container.id = "inote_img_container";
-            inote_img_container.setAttribute("style", "position:fixed;z-index:10;text-align:center;top:50%;left:50%;margin-top:-" + (inote_img_look.offsetHeight) / 2 +
-                "px;margin-left:-" + (inote_img_look.offsetWidth) / 2 + "px;");
-            var inote_div_nextimg = document.createElement("div");
-            inote_div_nextimg.innerHTML = "" +
-                "<img id='inote_img_pre' src='http://www.ireadhome.com/Content/Images/mobile/last_picture.png' style='font-size: 40px;cursor: pointer;margin-right: 50px;color: #fff'/>" +
-                "<img src='http://www.ireadhome.com/Content/Images/mobile/close_picture.png' id='inote_img_close' style='font-size: 40px;cursor: pointer;color: #fff'>" +
-                "<img src='http://www.ireadhome.com/Content/Images/mobile/next_picture.png' id='inote_img_next' style='font-size: 40px;cursor: pointer;margin-left: 50px;color: #fff'>&gt;</span>";
-            inote_div_nextimg.setAttribute("style", "position:fixed;bottom:20px;left:50%;margin-left:-134px");
-            inote_img_container.appendChild(inote_div_nextimg);
-            var _num = 0,
-                _src_len = src.length;;
-            for (var j = 0; j < _src_len; j++) {
-                if (src[j] == the_src) {
-                    _num = j;
-                }
+        $('a').click(function(e) {
+            var elem = $(e.target);
+            if (elem.attr('href').indexOf('t.cn') !== -1) {
+                window.open(elem.attr('title'));
+                return false;
             }
-            document.getElementById("inote_img_next").onclick = function() {
-                _num++;
-                if (_num >= _src_len) {
-                    _num = 0;
-                }
-                inote_other_img(src[_num]);
+        });
+    }
 
-            };
-            document.getElementById("inote_img_pre").onclick = function() {
-                _num--;
-                if (_num < 0) {
-                    _num = _src_len - 1;
-                }
-                inote_other_img(src[_num]);
+    /**
+     * 禁用google的跳转功能
+     * @return {[type]} [description]
+     */
 
-            };
-            document.getElementById("inote_img_close").onclick = function() {
-                document.body.removeChild(inote_img_container);
-                document.body.removeChild(inote_mc_div);
-                document.body.style.overflow = "auto";
-            };
-        }
-
-        function inote_other_img(src) {
-            document.getElementById("single_img_look").src = src;
-            document.getElementById("inote_img_container").style.marginTop = (-document.getElementById("single_img_look").offsetHeight / 2) + "px";
-            document.getElementById("inote_img_container").style.marginLeft = (-document.getElementById("single_img_look").offsetWidth / 2) + "px";
-        }
-
-        function windowchange() {
-            var mainHeight, mainWith;
-            if (window.innerHeight !== undefined) {
-                mainHeight = parseInt(window.innerHeight) + "px";
-                mainWith = parseInt(window.innerWidth) + "px";
-            } else {
-                var B = document.documentElement.offsetHeight,
-                    D = document.documentElement.clientHeight;
-                mainHeight = parseInt(Math.max(D, B)) + "px";
-                var A = document.documentElement.offsetWidth,
-                    C = document.documentElement.clientWidth;
-                mainWith = parseInt(Math.max(A, C)) + "px";
-            };
-            return {
-                "Height": mainHeight,
-                "Width": mainWith
-            };
-        }
+    function beautyGoogle() {
+        $('a').removeAttr('onmousedown');
     }
 });
 
+/**
+ * 加载微博急简css
+ * @return {[type]} [description]
+ */
 
+function loadWbMiniCss() {
+    if (document.getElementById("g_wbmini")) return;
+    var el = document.createElement("link");
+    el.id = "g_wbmini";
+    el.rel = "stylesheet";
+    el.href = chrome.extension.getURL("css/wbMini.css");
+    headEl = document.getElementsByTagName("head")[0];
+    headEl.appendChild(el);
+}
+
+
+/**
+ * 翻译功能
+ * @param  {[type]} $ [description]
+ * @return {[type]}   [description]
+ */
 ((function($) {
     var isShowTran = false;
 
     var x, y;
 
-    $(document).click(function(e) {
-        console.log(e.target.className);
-    });
-
     $(document).keypress(function(event) {
         var code = event.keyCode || event.whick;
         if (code == 100) {
             var t = getSelected().toString().trim();
-            if (t != '' && t.length < 200) {
+            if (t !== '' && t.length < 200) {
                 youdaoApi(t, function(res) {
                     if (!isShowTran) {
                         var box = $("<div></div>");
