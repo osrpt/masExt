@@ -256,6 +256,17 @@ function loadWbMiniCss() {
 }
 
 
+
+var keys = {};
+
+$(document).keydown(function(e) {
+    keys[e.which] = true;
+});
+
+$(document).keyup(function(e) {
+    delete keys[e.which];
+});
+
 /**
  * 翻译功能
  * @param  {[type]} $ [description]
@@ -268,7 +279,7 @@ function loadWbMiniCss() {
 
     $(document).keypress(function(event) {
         var code = event.keyCode || event.whick;
-        if (code == 100) {
+        if (keys['16'] && keys['90']) {
             var t = getSelected().toString().trim();
             if (t !== '' && t.length < 200) {
                 youdaoApi(t, function(res) {
