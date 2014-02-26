@@ -334,15 +334,13 @@ a:hover {
 }
 
 .masTran .explain {
-
     font-size: 14px;
-
     color:#000;
-
     margin:3px;
-
     padding:3px;
-
+    width:100%;
+    background-color: #009d91;
+    border:none;
 }
 
 /*end mas ext style*/
