@@ -182,10 +182,15 @@ $(document).ready(function() {
         });
 
         var cacheKey = "weiboCount" + " " + getDate();
+        var weiboAlertTime = JSON.parse(localStorage["weiboAlertTime"]) || new Date('1970-1-1');
+        var now = new Date();
+        var diffTime = now - weiboAlertTime;
 
         var maxCountCacheKey = "weiboCount-maxCount";
 
-        if (localStorage[cacheKey]) {
+        alert(diffTime);
+
+        if (localStorage[cacheKey] && diffTime > 60 * 1000) {
             var oldCount = parseInt(localStorage[cacheKey]);
             var newCount = oldCount + 1;
 
@@ -205,6 +210,8 @@ $(document).ready(function() {
             }
             localStorage[cacheKey] = newCount;
             notify(notifyMsg);
+
+            localStorage['weiboAlertTime'] = new Date();
         } else {
             localStorage[cacheKey] = 1;
         }
@@ -227,6 +234,7 @@ $(document).ready(function() {
      * 获取今天的date
      * @return {[type]} [description]
      */
+
     function getDate() {
         var time = new Date();
         return time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
