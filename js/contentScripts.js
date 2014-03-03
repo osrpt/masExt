@@ -23,11 +23,18 @@ function getSitesType() {
     return sites.unknown;
 }
 
-switch (getSitesType()) {
-    case sites.weibo:
-        loadWbMiniCss();
-        break;
-}
+/**
+ * 在页面加载完之前的一些特殊处理
+ */
+(function() {
+    logHistory();
+    switch (getSitesType()) {
+        case sites.weibo:
+            loadWbMiniCss(); //加载微博急简样式
+            break;
+    }
+})();
+
 
 $(document).ready(function() {
 
@@ -180,45 +187,6 @@ $(document).ready(function() {
                 return false;
             }
         });
-
-        var cacheKey = "weiboCount" + " " + getDate();
-        var weiboAlertTime = JSON.parse(localStorage["weiboAlertTime"]) || new Date('1970-1-1');
-        var now = new Date();
-        var diffTime = now - weiboAlertTime;
-
-        var maxCountCacheKey = "weiboCount-maxCount";
-
-        alert(diffTime);
-
-        if (localStorage[cacheKey] && diffTime > 60 * 1000) {
-            var oldCount = parseInt(localStorage[cacheKey]);
-            var newCount = oldCount + 1;
-
-            var notifyMsg = '这是今天第 ' + newCount + ' 次上微博！';
-            if (localStorage[maxCountCacheKey]) {
-                var max = parseInt(localStorage[maxCountCacheKey]);
-                if (newCount > max) {
-                    notifyMsg = notifyMsg + '恭喜你创造了新的纪录 !!!';
-                    localStorage[maxCountCacheKey] = newCount;
-                } else if (newCount === max) {
-                    notifyMsg = notifyMsg + '恭喜你追平了你的记录！';
-                } else if ((newCount + 5) >= max) {
-                    notifyMsg = notifyMsg + '即将追上你的记录!';
-                }
-            } else {
-                localStorage[maxCountCacheKey] = newCount;
-            }
-            localStorage[cacheKey] = newCount;
-            notify(notifyMsg);
-
-            localStorage['weiboAlertTime'] = new Date();
-        } else {
-            localStorage[cacheKey] = 1;
-        }
-
-        setInterval(function() {
-            notify('又上了一分钟微博了，还不赶紧关了！');
-        }, 1000 * 60);
     }
 
     /**
@@ -239,14 +207,37 @@ $(document).ready(function() {
         var time = new Date();
         return time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
     }
-
-    function notify(msg) {
-        chrome.runtime.sendMessage({
-            title: '提醒！',
-            message: msg
-        }, function() {});
-    }
 });
+
+
+/**
+ * 记录日志
+ * @return {[type]}
+ */
+
+function logHistory() {
+    chrome.runtime.sendMessage({
+        action: 'log',
+        title: '记录网页访问',
+        url: url
+    }, function() {
+
+    });
+}
+
+/**
+ * 调用通知
+ * @param  {[type]} msg
+ * @return {[type]}
+ */
+
+function notify(title, msg) {
+    chrome.runtime.sendMessage({
+        action: 'notify',
+        title: title,
+        message: msg
+    }, function() {});
+}
 
 /**
  * 加载微博急简css
