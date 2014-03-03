@@ -1,5 +1,5 @@
-##maxExt
-maxExt是一个提供更好的网页浏览体验的chrome扩展工具。
+##masExt
+masExt是一个提供更好的网页浏览体验的chrome扩展工具。
 
 ##主要功能：
 1. 整合微博急简css，在此基础上做了一些修改
