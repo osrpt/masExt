@@ -1,8 +1,11 @@
-var distracting = [
-    'zhihu.com',
-    'cnblogs.com',
-    'weibo.com'
-];
+var distracting = [];
+
+if (localStorage.distractingSites) {
+    var sites = localStorage.distractingSites.split('\n');
+    for (var i = 0; i < sites.length; i++) {
+        distracting.push(sites[i]);
+    };
+}
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
@@ -34,7 +37,8 @@ chrome.runtime.onMessage.addListener(
                         setTimeout(function() {
                             chrome.notifications.clear(notificationId, function() {});
                         }, 3 * 1000);
-                    })
+                    });
+                    break;
                 }
             };
         }
@@ -49,7 +53,8 @@ chrome.runtime.onMessage.addListener(
 
 function getHostNameFromUrl(url) {
     var matches = url.match(/^https?\:\/\/([^\/?#]+)(?:[\/?#]|$)/i);
-    return matches && matches[1];
+    var host = matches && matches[1];
+    return host.toLowerCase();
 }
 
 /**

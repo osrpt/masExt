@@ -11,6 +11,51 @@ a:hover {
 
 }
 
+.easyWebPopup {
+
+    width:400px;
+
+    height: 280px;
+}
+
+.easyWebPopup .main {
+
+    margin:10px;
+
+    padding:10px;
+
+}
+
+.easyWebPopup .main textarea {
+
+    width:360px;
+
+    margin:10px 0;
+
+    max-width:340px;
+
+}
+
+.easyWebPopup .footer {
+
+    padding:10px;
+
+    border-top: 1px solid #ddd;
+
+}
+
+.easyWebPopup .footer a {
+
+    color:#888;
+
+}
+
+.easyWebPopup .footer a:visited {
+
+    color:#888;
+
+}
+
 /*start t66y style*/
 
 .t66y {
@@ -334,13 +379,21 @@ a:hover {
 }
 
 .masTran .explain {
+
     font-size: 14px;
+
     color:#000;
+
     margin:3px;
+
     padding:3px;
+
     width:100%;
+
     background-color: #009d91;
+
     border:none;
+
 }
 
 /*end mas ext style*/
