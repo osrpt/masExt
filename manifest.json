@@ -1,8 +1,8 @@
 ﻿{
     "manifest_version": 2,
-    "name": "masExt",
+    "name": "easyWeb",
     "version": "1.0.6",
-    "description": "massimo clean web extension",
+    "description": "easy to surf on web",
     "permissions": [
         "contextMenus",
         "storage",
@@ -27,14 +27,6 @@
         "css": ["/css/style.css"],
         "js": ["/js/jquery-2.0.3.min.js", "/js/contentScripts.js", "/js/inotev2.js"]
     }],
-    "commands": {
-        "open-translate": {
-            "suggested_key": {
-                "default": "Ctrl+Shift+K"
-            },
-            "description": "打开翻译窗口"
-        }
-    },
     "background": {
         "scripts": ["/js/background.js"],
         "persistent": false
