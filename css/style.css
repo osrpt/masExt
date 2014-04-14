@@ -16,6 +16,7 @@ a:hover {
     width:400px;
 
     height: 280px;
+
 }
 
 .easyWebPopup .main {
@@ -407,6 +408,12 @@ a:hover {
 }
 
 .weibo .FIXED {
+
+    display:none !important;
+
+}
+
+.weibo .W_btn_a {
 
     display:none !important;
 
