@@ -8,7 +8,7 @@ var sites = {
     weibo: 'weibo',
     qzone: 'qzone',
     rmdown: 'rmdown',
-    google: 'www.google.com'
+    google: 'google'
 };
 
 var thisSite = getSitesType();
@@ -37,9 +37,7 @@ function getSitesType() {
 
 
 $(document).ready(function() {
-
     initReadability();
-
     switch (getSitesType()) {
         case sites.t66y:
             beautyT66y();
@@ -125,9 +123,6 @@ $(document).ready(function() {
     function beautyT66y() {
         if (url.indexOf('thread') >= 0) { //topic
             $(".t:eq(0)").hide();
-            for (var i = $('tr').length - 1; i >= 0; i--) {
-                console.log($('tr')[i].className);
-            }
         } else if (url.indexOf('htm_data') >= 0) { //single article
             $("#main .t2 table:eq(0)").find("a,img").each(function() {
                 var tagName = $(this).prop("tagName");
@@ -195,7 +190,14 @@ $(document).ready(function() {
      */
 
     function beautyGoogle() {
-        $('a').removeAttr('onmousedown');
+        $('a').click(function(e) {
+            var href = $(this).attr('href');
+            var url = getParameterByName(href, 'url');
+            if (url) {
+                e.preventDefault();
+                window.open(url);
+            }
+        })
     }
 
     /**
@@ -207,8 +209,18 @@ $(document).ready(function() {
         var time = new Date();
         return time.getFullYear() + "-" + time.getMonth() + "-" + time.getDate();
     }
-});
 
+    /**
+     * 从link中获得参数
+     */
+
+    function getParameterByName(link, name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(link);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+});
 
 /**
  * 记录日志
