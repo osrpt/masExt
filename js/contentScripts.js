@@ -158,7 +158,7 @@ $(document).ready(function() {
         $(".box li").each(function(i, v) {
             if ($(v).text().indexOf('热火') >= 0) {
                 $(v).addClass('miamiHeat');
-            } else if ($(v).text().indexOf('NBA常规赛') < 0) {
+            } else if ($(v).text().indexOf('NBA常规赛') < 0 && $(v).text().indexOf('NBA季后赛') < 0) {
                 $(v).remove();
             }
         });
