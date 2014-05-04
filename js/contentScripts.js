@@ -73,7 +73,6 @@ $(document).ready(function() {
     function initReadability() {
         var tool = $("<div/>");
         tool.attr('id', 'masExtToolbar');
-        tool.addClass('toolbar');
 
         var wolf = $("<div/>");
         wolf.attr('id', 'masExtWolfIcon');
